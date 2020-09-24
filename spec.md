@@ -67,6 +67,8 @@ FORMATTING
 - letter casing may be used where deemed useful, but can usually be omitted to limit the amount of keystrokes
 - HEADLINES and line separators shall end in column 109
 - lines should not exceed 117 chars (so they can be viewed on half a screen) FIXME
+- non-running text before a block/list must usually be a PSEUDOHEADLINE
+    - use colons as last char if need be
 
 
 
