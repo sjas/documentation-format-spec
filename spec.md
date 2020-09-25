@@ -70,6 +70,7 @@ FORMATTING
 - lines should not exceed 117 chars (so they can be viewed on half a screen) FIXME
 - non-running text before a block/list must usually be a PSEUDOHEADLINE
     - use colons as last char if need be
+- 3 empty lines in between elements (running text,lists,codeblocks) within a HEADLINE area
 
 
 
