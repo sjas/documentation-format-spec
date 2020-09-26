@@ -1,11 +1,11 @@
 # documentation format spec
 
 ```
-goal of this specification 
-elements this spec uses,used markdown subset,formatting style 
-text layout structure 
-format specification in particular 
-vim shortcuts for easier usage 
+## goal of this specification 
+## elements this spec uses,used markdown subset,formatting style 
+## text layout structure 
+## specification used formatting elements (HEADER,TOC,CONTENT) in particular  
+## vim shortcuts for easier usage 
 ```
 
 
@@ -102,7 +102,7 @@ CONTENT
 
 
 
-## format specification in particular #######################################################################
+## specification used formatting elements (HEADER,TOC,CONTENT) in particular  ###############################
 #### docs
 MARKDOWN HEADER
 - first line is `# description_of_file_contents`
@@ -113,7 +113,9 @@ MARKDOWN HEADER
 
 MARKDOWN TOC
 - code block (`^```$`-delimited)
-- contains all HEADLINES, stripped of the #-prefix and -suffix, an the adjacent spaces
+- contains all HEADLINES
+- stripped of the ` #+`-suffix (including the adjacent space)
+- but not the `^## `-prefix, so line-searching for it works as likely as possible
 
 MARKDOWN CONTENT
 - TOC HEADLINES
@@ -139,6 +141,8 @@ MARKDOWN CONTENT
 - code blocks are of two types
     - `^```$` for any codeblock without a PSEUDOHEADLINE as description (3x `)
     - `^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$` for codeblocks directly following a PSEUDOHEADLINE (40x ~)
+        - annotate with the kind of code written in there if possible,by appending the type to the upper (40x`~`) line
+        - so the syntax highlighting will work properly in rendered documents
     - this is to better distinguish headlined codeblocks vs. general codeblocks
     - must be followed by an empty line
 - lists
@@ -192,12 +196,10 @@ CODE/CONFIG CONTENT
 
 ## vim shortcuts for easier usage ###########################################################################
 vim ~/.vimrc
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vimrc
 "# shortcuts&&keybindings bash&&markdown&&vim formatting ####################################################
 "ANY: search current line (for navigation from the 'toc' to paragraph
 nnoremap <leader>8 /\V<c-r>=escape(getline('.'),'\')<cr><cr>:noh<cr>zz
-"ANY: headline from current line after five newlines
-nnoremap <leader>jj 0i## <esc>$a  <esc>109i#<esc>0109l<esc>d$O<cr><cr><cr><cr><cr><esc>jj
 "ANY: headline from current line
 nnoremap <leader>jl 0i## <esc>$a  <esc>109i#<esc>0109l<esc>d$o<esc>
 "ANY: separator line
@@ -207,8 +209,15 @@ nnoremap <leader>sp VgU:s/./& /g<cr>:s/^# 0 x \(.\) \(.\)   -   /#0x\1\2  -  /i<
 "ANY: small headline (####)
 nnoremap <leader>h 0i#### <esc>o<esc>D
 
+"MARKDOWN: headline from current line after five newlines
+nnoremap <leader>jj 0i## <esc>$a  <esc>109i#<esc>0109l<esc>d$O<cr><cr><cr><cr><cr><esc>jj
+"MARKDOWN: headline from current line after five newlines plus codeblock
+nnoremap <leader>jjk 0i## <esc>$a  <esc>109i#<esc>0109l<esc>d$O<cr><cr><cr><cr><cr><esc>jji```<cr><cr>```<esc>k
+"MARKDOWN: code block
+nnoremap <leader>c VgUo<esc>40i~<esc>yypO<esc>DkAbash<esc>j
 "MARKDOWN: update toc (1 above and 3 empty lines below), and show it. (get back via c-o)
-nnoremap <silent> <leader>mt mzgg}d}d/.<cr>O<cr>```<cr><cr><esc>k:redir @y<cr>:g/^## /p<cr>:redir END<cr>gg}}"ypdkdd}i```<cr><cr><cr><cr><cr><esc>kkkkk:noh<cr>gg}V}:s/^## //<cr>gv<cr>:s/#\+$//<cr>:noh<cr>'zgg
+nnoremap <silent> <leader>mt mzgg}d}d/.<cr>O<cr>```<cr><cr><esc>k:redir @y<cr>:g/^## /p<cr>:redir END<cr>gg}}"ypdkdd}i```<cr><cr><cr><cr><cr><esc>kkkkk:noh<cr>gg}V}:s/#\+$//<cr>:noh<cr>'zgg
+"old: nnoremap <silent> <leader>mt mzgg}d}d/.<cr>O<cr>```<cr><cr><esc>k:redir @y<cr>:g/^## /p<cr>:redir END<cr>gg}}"ypdkdd}i```<cr><cr><cr><cr><cr><esc>kkkkk:noh<cr>gg}V}:s/^## //<cr>gv<cr>:s/#\+$//<cr>:noh<cr>'zgg
 
 "VIM: update toc (1 above and 3 empty lines below), and show it. (get back via c-o)
 nnoremap <silent> <leader>vt mzgg}d}d/.<cr>O<esc>DO<esc>:redir @y<cr>:g/^"# /p<cr>:redir END<cr>gg}"ypdk}i<cr><esc>gg}V}:s/#\+$//<cr>:noh<cr>o<esc>Do<cr><esc>D'zgg
@@ -219,8 +228,6 @@ nnoremap <leader>vl 0i## <esc>$a  <esc>109i#<esc>0109l<esc>d$0r"o<esc>x
 
 "BASH: update toc (1 above and 3 empty lines below), and show it. (get back via c-o)
 nnoremap <silent> <leader>bt mzgg}d}d/.<cr>O<cr><esc>:redir @y<cr>:g/^## /p<cr>:redir END<cr>gg}"ypdk}i<cr><esc>gg}V}:s/#\+$//<cr>:noh<cr>o<cr><cr><esc>'zgg
-"BASH: code block
-nnoremap <leader>c o<esc>40i~<esc>yypO<esc>D
 "BASH: box with unchanged letter-casing
 nnoremap <leader>hl I# <esc>A #<esc>yyPVr#yyjp<cr>
 "BASH: box with uppercase content
